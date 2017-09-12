@@ -7,8 +7,8 @@ class Product extends Component {
     super(props);
     this.state = {qty:0};
     this.deposit = this.deposit.bind(this);
-    this.balance = this.balance.bind(this);
-    this.withdraw= this.withdraw.bind(this);
+    this.show = this.show.bind(this);
+    this.withdraw = this.withdraw.bind(this);
 
   }
 
@@ -17,9 +17,7 @@ class Product extends Component {
     this.props.handleTotal(this.props.price); 
   }
 
-  balance() {
-    this.props.handleShow(this.props.name);
-    }
+  
   
   withdraw() {
     this.setState({qty: this.state.qty - 1});
@@ -27,30 +25,37 @@ class Product extends Component {
   }
 
 
+show() {
+    this.props.handleShow(this.props.balance);
+    }
+
+
   render() {
     return (
       <div>
-     <p>{this.props.name} = ${this.props.price}</p>
-      <button className="btn btn-primary" onClick={this.buy}>Deposit</button>
-      
-      <button className="btn btn-primary" onClick={this.bawas}>Withdraw</button>
-      
-      <button className="btn btn-primary" onClick={this.show}>Balance</button>
 
-      <h3>{this.state.qty}</h3>
-      <h3>${this.state.qty*this.props.price}</h3>
+     {/*<p>this.props.name} = ${this.props.price}</p>*/}
+
+      <button className="btn btn-primary" onClick={this.deposit}>Deposit</button>
+           
+            <button className="btn btn-primary" onClick={this.withdraw}>Withdraw</button>
+
+       <button className="btn btn-primary" onClick={this.show}>Balance</button>
+      
+      {/*<h3>{this.state.qty}</h3>*/}
+      
+      {/*<h3>${this.state.qty*this.props.price}</h3>*/}
       <hr/>  
       </div>
     );
   }
 }
 
-
 class Total extends Component {
   render() {
     return (
     <div>
-    <h3>Total balance: ${this.props.total}</h3> 
+    {/*<h3>Total balance: ${this.props.total}</h3>*/} 
     </div>
    )
 
@@ -70,18 +75,20 @@ class ProductForm extends Component {
     )};
     this.props.handleCreate(product);
     //alert(product.name+ "has been added");
-    this.refs.name.value='';
+    this.ref.name.value='';
     this.refs.name.value='';
  }
 
   render() {
     return(
       <form onSubmit={this.submit} class="form-group">
-      <input className="form-control" type="text" placeholder="Name" ref="name"/>
-      <input className="form-control" type="text" placeholder="Amount" ref="Amount"/>
+      <input className="form-control" type="text" placeholder="Enter Name" ref="name"/>
       <br/>
-      <button className="btn btn-primary">Submit</button>
+      <input className="form-control" type="text" placeholder="Enter Amount" ref="balance"/>
+      <br/>
+      <button className="btn btn-primary">Submit</button> 
       </form>
+
       );
     }
 }
@@ -92,20 +99,20 @@ class ProductList extends Component {
     constructor(props) {
       super(props);
       this.state={total:0,
-         productList: [{name: "Android", price: 213},
-                  {name: "IOS", price: 1234}
-                 ]
+         productList: [{name: "", balance: 213},
+                
+                  ]
       };
       this.calcTotal = this.calcTotal.bind(this);
       this.createProduct = this.createProduct.bind(this);
     }
 
-    calcTotal(price) {
-      this.setState({total: this.state.total + price})
+    calcTotal(balance) {
+      this.setState({total: this.state.total + balance})
     }
 
-  showProduct(name) {
-     alert("Your are buying"+name);
+  showProduct(balance) {
+     alert("Your balance is "+balance);
  }
 
     createProduct(product) {
