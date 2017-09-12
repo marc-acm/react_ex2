@@ -6,22 +6,22 @@ class Product extends Component {
   constructor(props) {
     super(props);
     this.state = {qty:0};
-    this.buy = this.buy.bind(this);
-    this.show = this.show.bind(this);
-    this.bawas = this.bawas.bind(this);
+    this.deposit = this.deposit.bind(this);
+    this.balance = this.balance.bind(this);
+    this.withdraw= this.withdraw.bind(this);
 
   }
 
-  buy() {
+  deposit() {
     this.setState({qty: this.state.qty + 1});
     this.props.handleTotal(this.props.price); 
   }
 
-  show() {
+  balance() {
     this.props.handleShow(this.props.name);
     }
   
-  bawas() {
+  withdraw() {
     this.setState({qty: this.state.qty - 1});
     this.props.handleTotal(this.props.price); 
   }
@@ -32,8 +32,11 @@ class Product extends Component {
       <div>
      <p>{this.props.name} = ${this.props.price}</p>
       <button className="btn btn-primary" onClick={this.buy}>Deposit</button>
-      <button className="btn btn-primary" onClick={this.show}>Show</button>
-      <button className="btn btn-primary" onClick={this.bawas}>-</button>
+      
+      <button className="btn btn-primary" onClick={this.bawas}>Withdraw</button>
+      
+      <button className="btn btn-primary" onClick={this.show}>Balance</button>
+
       <h3>{this.state.qty}</h3>
       <h3>${this.state.qty*this.props.price}</h3>
       <hr/>  
@@ -74,10 +77,10 @@ class ProductForm extends Component {
   render() {
     return(
       <form onSubmit={this.submit} class="form-group">
-      <input className="form-control" type="text" placeholder="Prod Name" ref="name"/>
-      <input className="form-control" type="text" placeholder="Prod Price" ref="price"/>
+      <input className="form-control" type="text" placeholder="Name" ref="name"/>
+      <input className="form-control" type="text" placeholder="Amount" ref="Amount"/>
       <br/>
-      <button className="btn btn-primary">Create Product</button>
+      <button className="btn btn-primary">Submit</button>
       </form>
       );
     }
@@ -90,10 +93,8 @@ class ProductList extends Component {
       super(props);
       this.state={total:0,
          productList: [{name: "Android", price: 213},
-                  {name: "IOS", price: 1234},
-                  {name: "Samsung", price: 123},
-                  {name: "Kopiko Black", price: 12},
-                  {name:"Chair", price: 142}]
+                  {name: "IOS", price: 1234}
+                 ]
       };
       this.calcTotal = this.calcTotal.bind(this);
       this.createProduct = this.createProduct.bind(this);
